@@ -15,19 +15,39 @@ void ch1115_reset(void){
     sleep_ms(100);
 }
 
+static inline void ch1115_cs_select(void){
+	asm volatile("nop \n nop \n nop");
+	gpio_put(PIN_CS,0);
+	asm volatile("nop \n nop \n nop");
+}
+
+static inline void ch1115_cs_deselect(void){
+	asm volatile("nop \n nop \n nop");
+	gpio_put(PIN_CS,1);
+	asm volatile("nop \n nop \n nop");
+}
+
 void ch1115_data(uint8_t data){
+	ch1115_cs_select();
     spi_write_blocking(SPI_PORT, &data, 1);
+	ch1115_cs_deselect();
 }
 
 void ch1115_command(uint8_t command, uint8_t value){
+	ch1115_cs_select();
     gpio_put(PIN_DC,0);
+	
     ch1115_data(command | value);
+	
     gpio_put(PIN_DC,1);
+	ch1115_cs_deselect();
 }
 
 int ch1115_init(void){
-    gpio_put(PIN_CS, 0);
+    
     ch1115_reset();
+
+	// ch1115_cs_select();
 
     ch1115_command(ERMCH1115_DISPLAY_OFF, 0);
 
@@ -71,14 +91,15 @@ int ch1115_init(void){
 
 	ch1115_command(ERMCH1115_DISPLAY_ON, 0);
 
-    gpio_put(PIN_CS, 1);
+    // ch1115_cs_deselect();
+
     sleep_ms(100);
     return 1;
 }
 
 void OLEDBufferScreen(int16_t x, int16_t y, uint8_t w, uint8_t h, uint8_t *data)
 {
-	gpio_put(PIN_CS, 0);
+	// gpio_put(PIN_CS, 0);
 
 	uint8_t tx, ty;
 	uint16_t offset = 0;
@@ -106,7 +127,7 @@ void OLEDBufferScreen(int16_t x, int16_t y, uint8_t w, uint8_t h, uint8_t *data)
 			ch1115_data(data[offset++]);
 		}
 	}
-	gpio_put(PIN_CS, 1);
+	// gpio_put(PIN_CS, 1);
 }
 
 void OLEDupdate()

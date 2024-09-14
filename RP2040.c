@@ -11,29 +11,31 @@ int main()
 {
     stdio_init_all();
 
-    gpio_init(PIN_SCK);
-	gpio_init(PIN_MOSI);
-    gpio_init(PIN_MISO);
+    // gpio_init(PIN_SCK);
+	// gpio_init(PIN_MOSI);
+    // gpio_init(PIN_MISO);
 
     // SPI initialisation. This example will use SPI at 1MHz.
-    spi_init(SPI_PORT, 8*1000*1000);
+    spi_init(SPI_PORT, 1*1000*1000);
     gpio_set_function(PIN_MISO, GPIO_FUNC_SPI);
-    gpio_set_function(PIN_CS,   GPIO_FUNC_SIO);
+    // gpio_set_function(PIN_CS,   GPIO_FUNC_SIO);
     gpio_set_function(PIN_SCK,  GPIO_FUNC_SPI);
     gpio_set_function(PIN_MOSI, GPIO_FUNC_SPI);
 
-    // bi_decl(bi_4pins_with_func(PIN_MISO, PIN_MOSI, PIN_SCK, PIN_CS, GPIO_FUNC_SPI));
+    bi_decl(bi_3pins_with_func(PIN_MISO, PIN_MOSI, PIN_SCK, GPIO_FUNC_SPI));
 
-    spi_set_format(SPI_PORT, // SPI instance
-				   8,			 // Number of bits per transfer
-				   SPI_CPOL_0,	 // Polarity (CPOL)
-				   SPI_CPHA_0,	 // Phase (CPHA)
-				   SPI_MSB_FIRST);
+    // spi_set_format(SPI_PORT, // SPI instance
+	// 			   8,			 // Number of bits per transfer
+	// 			   SPI_CPOL_0,	 // Polarity (CPOL)
+	// 			   SPI_CPHA_0,	 // Phase (CPHA)
+	// 			   SPI_MSB_FIRST);
     
     // Chip select is active-low, so we'll initialise it to a driven-high state
     gpio_init(PIN_CS);
     gpio_set_dir(PIN_CS, GPIO_OUT);
     gpio_put(PIN_CS, 1);
+
+    bi_decl(bi_1pin_with_name(PIN_CS,"SPI_CS"));
 
     gpio_init(PIN_RST);
     gpio_set_dir(PIN_RST, GPIO_OUT);
@@ -52,10 +54,10 @@ int main()
     ch1115_init();
     printf("end ch1115_init");
     
-    for(int i = 0; i<2; i++)
+    for(int i = 0; i<5; i++)
         sleep_ms(1000);
     drawPixel(20, 20, 1);
-    drawCircle(60, 30, 15, 1);
+    drawCircle(30, 60, 15, 1);
     
     while (true) {
         printf("Hi Grzesiek!\n");
