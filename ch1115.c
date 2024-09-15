@@ -27,6 +27,17 @@ static inline void ch1115_cs_deselect(void){
 	asm volatile("nop \n nop \n nop");
 }
 
+static inline void ch1115_dc_select(void){
+	asm volatile("nop \n nop \n nop");
+	gpio_put(PIN_DC,0);
+	asm volatile("nop \n nop \n nop");
+}
+static inline void ch1115_dc_deselect(void){
+	asm volatile("nop \n nop \n nop");
+	gpio_put(PIN_DC,1);
+	asm volatile("nop \n nop \n nop");
+}
+
 void ch1115_data(uint8_t data){
 	ch1115_cs_select();
     spi_write_blocking(SPI_PORT, &data, 1);
@@ -35,11 +46,9 @@ void ch1115_data(uint8_t data){
 
 void ch1115_command(uint8_t command, uint8_t value){
 	ch1115_cs_select();
-    gpio_put(PIN_DC,0);
-	
+    ch1115_dc_select();
     ch1115_data(command | value);
-	
-    gpio_put(PIN_DC,1);
+    ch1115_dc_deselect();
 	ch1115_cs_deselect();
 }
 
@@ -147,7 +156,7 @@ void drawPixel(int16_t x, int16_t y, uint8_t colour)
 		return;
 	}
 	int16_t temp;
-	uint8_t RotateMode = 1;
+	uint8_t RotateMode = 0;
 	switch (RotateMode) {
 	case 1:
 		temp = x;

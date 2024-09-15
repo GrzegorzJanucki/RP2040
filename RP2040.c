@@ -54,10 +54,10 @@ int main()
     ch1115_init();
     printf("end ch1115_init");
     
-    for(int i = 0; i<5; i++)
+    for(int i = 0; i<2; i++)
         sleep_ms(1000);
     drawPixel(20, 20, 1);
-    drawCircle(30, 60, 15, 1);
+    drawCircle(60, 30, 15, 1);
     
     while (true) {
         printf("Hi Grzesiek!\n");

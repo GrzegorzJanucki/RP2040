@@ -60,6 +60,10 @@
 #define ERMCH1115_DEACTIVATE_SCROLL 0x2E			/**< De-active Scroll mode */
 #define ERMCH1115_ACTIVATE_SCROLL 0x2F				/**<active Scroll mode */
 
+static inline void ch1115_cs_select(void);
+static inline void ch1115_cs_deselect(void);
+static inline void ch1115_dc_select(void);
+static inline void ch1115_dc_deselect(void);
 
 void ch1115_reset(void);
 void ch1115_data(uint8_t data);
