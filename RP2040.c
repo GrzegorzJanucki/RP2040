@@ -4,6 +4,9 @@
 #include "hardware/spi.h"
 #include "RP2040.h"
 #include "ch1115.h"
+#include "ch1115_graphics.h"
+#include "ch1115_font.h"
+#include "ch1115_print.h"
 
 int ch1115_init(void);
 
@@ -48,7 +51,7 @@ int main()
     gpio_init(PIN_LED);
     gpio_set_dir(PIN_LED, GPIO_OUT);
     gpio_put(PIN_LED, 1); 
-    // For more examples of SPI use see https://github.com/raspberrypi/pico-examples/tree/master/spi
+
 
     printf("start ch1115_init");
     ch1115_init();
@@ -56,9 +59,16 @@ int main()
     
     for(int i = 0; i<2; i++)
         sleep_ms(1000);
-    drawPixel(20, 20, 1);
-    drawCircle(60, 30, 15, 1);
+
     
+
+   // drawPixel(20, 20, 1);
+    //drawCircle(60, 30, 15, 1);
+    CH1115_graphics_init();
+    setCursor(60, 15);
+    setFont(pFontDefault);
+    print('x');
+
     while (true) {
         printf("Hi Grzesiek!\n");
         gpio_put(PIN_LED, 0);

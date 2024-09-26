@@ -1,4 +1,6 @@
-// ** DEFINES **
+#ifndef ch1115_h
+#define ch1115_h
+#pragma once// ** DEFINES **
 
 // Display Pixel colours  definition
 #define BLACK 0
@@ -73,3 +75,5 @@ void drawPixel(int16_t x, int16_t y, uint8_t colour);
 void OLEDupdate();
 void drawCircle(int16_t x0, int16_t y0, int16_t r,
 									uint8_t color);
+									
+#endif

@@ -39,6 +39,10 @@
     "raspberry-pi-pico.python3Path": "${HOME}/.pico-sdk/python/3.12.1/python.exe",
     "files.associations": {
         "cyw43_arch.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "ch1115_print.h": "c",
+        "ch1115_font.h": "c",
+        "ch1115.h": "c",
+        "stdint.h": "c"
     }
 }

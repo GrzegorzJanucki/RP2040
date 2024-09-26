@@ -3,6 +3,8 @@
 #include "hardware/spi.h"
 #include "RP2040.h"
 #include "ch1115.h"
+#include "ch1115_graphics.h"
+
 
 uint8_t OLEDbuffer[1024];
 
@@ -160,20 +162,20 @@ void drawPixel(int16_t x, int16_t y, uint8_t colour)
 	switch (RotateMode) {
 	case 1:
 		temp = x;
-		x = 128 - 1 - y;
+		x = _width - 1 - y;
 		y = temp;
 	break;
 	case 2:
-		x = 128 - 1 - x;
-		y = 64 - 1 - y;
+		x = _width - 1 - x;
+		y = _height - 1 - y;
 	break;
 	case 3:
 		temp = x;
 		x = y;
-		y = 64 - 1 - temp;
+		y = _height - 1 - temp;
 	break;
 	}
-	uint16_t tc = (128 * (y / 8)) + x;
+	uint16_t tc = (_width * (y / 8)) + x;
 	switch (colour)
 	{
 	case WHITE:

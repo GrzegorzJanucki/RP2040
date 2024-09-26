@@ -1,0 +1,10 @@
+build/.ninja_deps
+build/.ninja_log
+build/RP2040.bin
+build/RP2040.dis
+build/RP2040.elf
+build/RP2040.elf.map
+build/RP2040.uf2
+build/CMakeFiles/RP2040.dir/ch1115.c.obj
+build/CMakeFiles/RP2040.dir/RP2040.c.obj
+build/.ninja_deps
