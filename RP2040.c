@@ -67,7 +67,7 @@ int main()
     CH1115_graphics_init();
     setCursor(60, 15);
     setFont(pFontDefault);
-    print('x');
+    println("witam");
 
     while (true) {
         printf("Hi Grzesiek!\n");

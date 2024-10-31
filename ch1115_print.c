@@ -7,11 +7,11 @@ size_t print(char c)
   return write(c);
 }
 
-size_t println(char c)
+size_t println(char c[])
 {
-  size_t n = print(c);
-  n += println(c);
-  return n;
+  int len = sizeof(*c);
+
+  return print(c[len]);
 }
 
 
