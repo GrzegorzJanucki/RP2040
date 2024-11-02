@@ -67,8 +67,10 @@ int main()
     CH1115_graphics_init();
     setCursor(60, 15);
     setFont(pFontDefault);
-    println("witam");
-
+    char welcome[]="witam";
+    char welcome1[]="witam\n";
+    // println(welcome, sizeof(welcome));
+    println1(welcome1);
     while (true) {
         printf("Hi Grzesiek!\n");
         gpio_put(PIN_LED, 0);

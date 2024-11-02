@@ -7,14 +7,22 @@ size_t print(char c)
   return write(c);
 }
 
-size_t println(char c[])
+size_t println(char* pTable, int len)
 {
-  int len = sizeof(*c);
-
-  return print(c[len]);
+  for(int i=0; i<len; i++){
+    print(pTable[i]);
+  }
+  return len;
 }
 
-
+size_t println1(char* pTable)
+{
+  int i = 0;
+  do {
+    print(pTable[i]);
+  } while(pTable[++i] != '\n');
+  return i;
+}
 
 
 

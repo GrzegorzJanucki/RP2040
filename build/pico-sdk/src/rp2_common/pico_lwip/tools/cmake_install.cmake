@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/abc/.pico-sdk/sdk/2.0.0/src/rp2_common/hardware_dma
+# Install script for directory: C:/Users/abc/.pico-sdk/sdk/2.0.0/src/rp2_common/pico_lwip/tools
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)

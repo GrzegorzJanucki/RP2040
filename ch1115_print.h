@@ -29,7 +29,8 @@ size_t print (char);
 //   size_t print(const std::string &);
 
 //   size_t println(const char[]);
-size_t println(char[]);
+size_t println(char* pTab,int len);
+size_t println1(char* pTable);
 //   size_t println(int, int = DEC);
 //   size_t println(unsigned int, int = DEC);
 //   size_t println(long, int = DEC);
