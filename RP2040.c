@@ -60,23 +60,25 @@ int main()
     for(int i = 0; i<2; i++)
         sleep_ms(1000);
 
-    
-
    // drawPixel(20, 20, 1);
     //drawCircle(60, 30, 15, 1);
     CH1115_graphics_init();
-    setCursor(60, 15);
+
     setFont(pFontDefault);
-    char welcome[]="witam";
-    char welcome1[]="witam\n";
+
     // println(welcome, sizeof(welcome));
-    println1(welcome1);
     while (true) {
-        printf("Hi Grzesiek!\n");
-        gpio_put(PIN_LED, 0);
-        sleep_ms(500);
+        setCursor(15, 5);
+        char nazwa[]="Power Meter v0.01\n";
+        println1(nazwa);
+        setCursor(40, 55);
+        char wynik[] ="88.8 dBmW\n";
+        println1(wynik);
+        drawCircle(5, 7, 5, WHITE);
         OLEDupdate();
-        gpio_put(PIN_LED, 1);
+        sleep_ms(500);
+        drawCircle(5, 7, 5, BLACK);\
+        OLEDupdate();
         sleep_ms(500);
     }
 }
