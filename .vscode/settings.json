@@ -43,6 +43,11 @@
         "ch1115_print.h": "c",
         "ch1115_font.h": "c",
         "ch1115.h": "c",
-        "stdint.h": "c"
+        "stdint.h": "c",
+        "spi.h": "c",
+        "ch1115_graphics.h": "c",
+        "rp2040.h": "c",
+        "gpio.h": "c",
+        "adc.h": "c"
     }
 }
