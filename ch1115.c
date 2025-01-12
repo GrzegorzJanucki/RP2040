@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "pico/stdlib.h"
 #include "hardware/spi.h"
 #include "RP2040.h"
@@ -190,6 +191,105 @@ void drawPixel(int16_t x, int16_t y, uint8_t colour)
 	}
 }
 
+void drawLine(int16_t x0, int16_t y0,
+								  int16_t x1, int16_t y1,
+								  uint8_t color)
+{
+	int16_t steep = abs(y1 - y0) > abs(x1 - x0);
+	if (steep)
+	{
+		OLEDCH1115swap(x0, y0);
+		OLEDCH1115swap(x1, y1);
+	}
+
+	if (x0 > x1)
+	{
+		OLEDCH1115swap(x0, x1);
+		OLEDCH1115swap(y0, y1);
+	}
+
+	int16_t dx, dy;
+	dx = x1 - x0;
+	dy = abs(y1 - y0);
+
+	int16_t err = dx / 2;
+	int16_t ystep;
+
+	if (y0 < y1)
+	{
+		ystep = 1;
+	}
+	else
+	{
+		ystep = -1;
+	}
+
+	for (; x0 <= x1; x0++)
+	{
+		if (steep)
+		{
+			drawPixel(y0, x0, color);
+		}
+		else
+		{
+			drawPixel(x0, y0, color);
+		}
+		err -= dy;
+		if (err < 0)
+		{
+			y0 += ystep;
+			err += dx;
+		}
+	}
+}
+
+void fillCircleHelper(int16_t x0, int16_t y0, int16_t r,
+										  uint8_t cornername, int16_t delta, uint8_t color)
+{
+
+	int16_t f = 1 - r;
+	int16_t ddF_x = 1;
+	int16_t ddF_y = -2 * r;
+	int16_t x = 0;
+	int16_t y = r;
+
+	while (x < y)
+	{
+		if (f >= 0)
+		{
+			y--;
+			ddF_y += 2;
+			f += ddF_y;
+		}
+		x++;
+		ddF_x += 2;
+		f += ddF_x;
+
+		if (cornername & 0x1)
+		{
+			drawFastVLine(x0 + x, y0 - y, 2 * y + 1 + delta, color);
+			drawFastVLine(x0 + y, y0 - x, 2 * x + 1 + delta, color);
+		}
+		if (cornername & 0x2)
+		{
+			drawFastVLine(x0 - x, y0 - y, 2 * y + 1 + delta, color);
+			drawFastVLine(x0 - y, y0 - x, 2 * x + 1 + delta, color);
+		}
+	}
+}
+void drawFastVLine(int16_t x, int16_t y,
+									   int16_t h, uint8_t color)
+{
+	drawLine(x, y, x, y + h - 1, color);
+}
+
+void fillCircle(int16_t x0, int16_t y0, int16_t r,
+									uint8_t color)
+{
+	drawFastVLine(x0, y0 - r, 2 * r + 1, color);
+	fillCircleHelper(x0, y0, r, 3, 0, color);
+}
+
 void drawCircle(int16_t x0, int16_t y0, int16_t r,
 									uint8_t color)
 {
@@ -226,3 +326,4 @@ void drawCircle(int16_t x0, int16_t y0, int16_t r,
 		drawPixel(x0 - y, y0 - x, color);
 	}
 }
+

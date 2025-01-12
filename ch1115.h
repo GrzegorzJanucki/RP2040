@@ -62,6 +62,13 @@
 #define ERMCH1115_DEACTIVATE_SCROLL 0x2E			/**< De-active Scroll mode */
 #define ERMCH1115_ACTIVATE_SCROLL 0x2F				/**<active Scroll mode */
 
+#define OLEDCH1115swap(a, b) \
+	{                        \
+		int16_t t = a;       \
+		a = b;               \
+		b = t;               \
+	}
+
 static inline void ch1115_cs_select(void);
 static inline void ch1115_cs_deselect(void);
 static inline void ch1115_dc_select(void);
@@ -75,5 +82,15 @@ void drawPixel(int16_t x, int16_t y, uint8_t colour);
 void OLEDupdate();
 void drawCircle(int16_t x0, int16_t y0, int16_t r,
 									uint8_t color);
-									
+void fillCircle(int16_t x0, int16_t y0, int16_t r,
+									uint8_t color);
+void drawLine(int16_t x0, int16_t y0,
+								  int16_t x1, int16_t y1,
+								  uint8_t color);
+void fillCircleHelper(int16_t x0, int16_t y0, int16_t r,
+										  uint8_t cornername, int16_t delta, uint8_t color);
+void drawFastVLine(int16_t x, int16_t y,
+									   int16_t h, uint8_t color);
+
+
 #endif
